@@ -162,6 +162,7 @@ public class Client {
 						accounts.getBalance();
 						bank_options(accounts);
 						account_found = true;
+						break;
 					}
 				}
 
@@ -178,13 +179,13 @@ public class Client {
 	}
 
 	public static void bank_options(Account account) {
-		Scanner sc = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 
 		boolean loop_check = true;
 		while (loop_check) {
 			System.out.println("\nChoose one option : \n 1.Check account balance \n "
 					+ "2.Deposit Money \n 3.WithDraw Money \n 4.Exit");
-			int option = sc.nextInt();
+			int option = scanner.nextInt();
 
 			switch (option) {
 			case 1:
@@ -192,12 +193,12 @@ public class Client {
 				break;
 			case 2: {
 				System.out.println("Enter the Amount you want to deposit : ");
-				account.deposit(sc.nextInt());
+				account.deposit(scanner.nextInt());
 			}
 				break;
 			case 3: {
 				System.out.println("Enter the Amount you want to withdraw : ");
-				account.withDraw(sc.nextInt());
+				account.withDraw(scanner.nextInt());
 			}
 				break;
 			case 4: {
@@ -211,5 +212,6 @@ public class Client {
 			}
 
 		}
+		scanner.close();
 	}
 }
