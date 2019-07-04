@@ -22,7 +22,7 @@ public class SavingsAccount extends Account {
 				System.out.println("Balance amount : "+ this.getBalance());
 				return amount;
 			}else {
-				System.out.println("Amount is higher than Min balance");
+				System.out.println("Amount is higher than Min balance :(");
 				return 0;
 			}
 		}
