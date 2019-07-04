@@ -8,7 +8,7 @@ public class CurrentAccount extends Account {
 
 	public CurrentAccount(Person person) {
 		super(person);
-		this.setBalance(10000);
+		this.setBalance(25000);
 		this.getPerson().setSalary(this.getPerson().getSalary() - 25000);
 	}
 

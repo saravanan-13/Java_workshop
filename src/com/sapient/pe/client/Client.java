@@ -9,9 +9,14 @@ import com.sapient.pe.model.Person;
 import com.sapient.pe.model.SalariedAccount;
 import com.sapient.pe.model.SavingsAccount;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Client {
 
 	public static void main(String[] args) {
+
+		List<Account> accountList = new ArrayList<>();
 
 		Scanner sc = new Scanner(System.in);
 
@@ -48,119 +53,131 @@ public class Client {
 		System.out.println("\nYour personal details are saved successfully!\n");
 
 		// Account Creation
-		System.out.println("Do you want to create a account with us : \n 1.YES \n 2.NO");
 
-		if (sc.nextInt() == 1) {
+		boolean option_loop = true;
+		
+		while (option_loop) {
 
-			boolean accountType_loop_check = true;
+			System.out.println("\nChoose one option: \n 1.Create Account \n 2.Check your account details \n 3.exit");
 
-			while (accountType_loop_check) {
+			int loop_option = sc.nextInt();
 
-				// Switch Between different types of account
-				System.out.println("\nWhat type of account you want to create : \n 1.Savings Account "
-						+ "\n 2.Current Account \n 3.Salaried Account \n 4. None Of The Above");
+			if (loop_option == 1) {
 
-				int accountType = sc.nextInt();
-				sc.nextLine();
-				switch (accountType) {
-				case 1: {
-					System.out.println("\nSAVINGS ACCOUNT REQUIREMENTS : \n" + "Minimum Account Balance : 10000\n"
-							+ "Deposit Limit : 50000\n" + "WithDraw Limit : 25000\n"
-							+ "10000 will be debited from your salary to your bank account!");
-					System.out.println("\nWant to proceed with account creation ? \n 1.YES \n 2.NO");
-					if (sc.nextInt() == 1) {
+				boolean accountType_loop_check = true;
 
-						// Checking if salary is sufficient for account creation
-						if (person1.getSalary() >= 10000) {
-							Account savingsAccount = new SavingsAccount(person1);
-							accountType_loop_check = false;
-							//Calling function which different bank options
-							bank_options(savingsAccount);
-						} else {
-							System.out.println("Your salary is less than min balance ! Try again later!");
+				while (accountType_loop_check) {
+
+					// Switch Between different types of account
+					System.out.println("\nWhat type of account you want to create : \n 1.Savings Account "
+							+ "\n 2.Current Account \n 3.Salaried Account \n 4. None Of The Above");
+
+					int accountType = sc.nextInt();
+					sc.nextLine();
+					switch (accountType) {
+					case 1: {
+						System.out.println("\nSAVINGS ACCOUNT REQUIREMENTS : \n" + "Minimum Account Balance : 10000\n"
+								+ "Deposit Limit : 50000\n" + "WithDraw Limit : 25000\n"
+								+ "10000 will be debited from your salary to your bank account!");
+						System.out.println("\nWant to proceed with account creation ? \n 1.YES \n 2.NO");
+						if (sc.nextInt() == 1) {
+
+							// Checking if salary is sufficient for account creation
+							if (person1.getSalary() >= 10000) {
+								Account savingsAccount = new SavingsAccount(person1);
+								System.out.println("Your Savings Account created successfully ! ");
+								System.out.println("Account Number : " + savingsAccount.getAccountNumber());
+
+								accountList.add(savingsAccount);
+
+								accountType_loop_check = false;
+
+								// Calling function which different bank options
+								// bank_options(savingsAccount);
+							} else {
+								System.out.println("Your salary is less than min balance ! Try again later!");
+							}
+
 						}
-
 					}
-				}
-					break;
-				case 2: {
-					System.out.println("\nCURRENT ACCOUNT REQUIREMENTS : \n" + "Minimum Account Balance : 25000\n"
-							+ "Deposit Limit : NO LIMIT\n" + "WithDraw Limit : NO LIMIT\n"
-							+ "25000 will be debited from your salary to your bank account!");
-					System.out.println("\nWant to proceed with account creation ? \n 1.YES \n 2.NO");
-					if (sc.nextInt() == 1) {
-						
-						// Checking if salary is sufficient for account creation
-						if (person1.getSalary() >= 25000) {
-							Account currentAccount = new CurrentAccount(person1);
-							accountType_loop_check = false;
-							//Calling function which different bank options
-							bank_options(currentAccount);
-						} else {
-							System.out.println("Your salary is less than min balance ! Try again later!");
+						break;
+					case 2: {
+						System.out.println("\nCURRENT ACCOUNT REQUIREMENTS : \n" + "Minimum Account Balance : 25000\n"
+								+ "Deposit Limit : NO LIMIT\n" + "WithDraw Limit : NO LIMIT\n"
+								+ "25000 will be debited from your salary to your bank account!");
+						System.out.println("\nWant to proceed with account creation ? \n 1.YES \n 2.NO");
+						if (sc.nextInt() == 1) {
+
+							// Checking if salary is sufficient for account creation
+							if (person1.getSalary() >= 25000) {
+								Account currentAccount = new CurrentAccount(person1);
+								System.out.println("Your Current Account created successfully ! ");
+								System.out.println("Account Number : " + currentAccount.getAccountNumber());
+								accountList.add(currentAccount);
+
+								accountType_loop_check = false;
+								// Calling function which different bank options
+								// bank_options(currentAccount);
+							} else {
+								System.out.println("Your salary is less than min balance ! Try again later!");
+							}
+
 						}
-
 					}
-				}
-					break;
-				case 3: {
-					System.out.println("\nSALARIED ACCOUNT REQUIREMENTS :  \n" + "Minimum Account Balance : 0\n"
-							+ "Deposit Limit : 50000\n" + "WithDraw Limit : NO LIMIT\n");
-					System.out.println("\nWant to proceed with account creation ? \n 1.YES \n 2.NO");
-					if (sc.nextInt() == 1) {
-						Account salariedAccount = new SalariedAccount(person1);
+						break;
+					case 3: {
+						System.out.println("\nSALARIED ACCOUNT REQUIREMENTS :  \n" + "Minimum Account Balance : 0\n"
+								+ "Deposit Limit : 50000\n" + "WithDraw Limit : NO LIMIT\n");
+						System.out.println("\nWant to proceed with account creation ? \n 1.YES \n 2.NO");
+						if (sc.nextInt() == 1) {
+							Account salariedAccount = new SalariedAccount(person1);
+							System.out.println("Your Salaried Account created successfully ! ");
+							System.out.println("Account Number : " + salariedAccount.getAccountNumber());
+							accountList.add(salariedAccount);
+							accountType_loop_check = false;
+							// Calling function which different bank options
+							// bank_options(salariedAccount);
+
+						}
+					}
+						break;
+					case 4: {
 						accountType_loop_check = false;
-						//Calling function which different bank options
-						bank_options(salariedAccount);
-
+					}
+						break;
+					default:
+						System.out.println("Choose correct option from the list!\n");
+						break;
 					}
 				}
-					break;
-				case 4: {
-					accountType_loop_check = false;
+
+			} else if (loop_option == 2) {
+				System.out.println("Enter your account number : \n");
+				long client_account_number = sc.nextLong();
+
+				boolean account_found = false;
+
+				for (Account accounts : accountList) {
+					if (accounts.getAccountNumber() == client_account_number) {
+						accounts.getBalance();
+						bank_options(accounts);
+						account_found = true;
+					}
 				}
-					break;
-				default:
-					System.out.println("Choose correct option from the list!\n");
-					break;
-				}
+
+				if (!account_found)
+					System.out.println("Account Not found!");
+
+			} else {
+				System.out.println("Thanks for visiting us :)\n");
+				option_loop = false;
 			}
-
-		} else {
-			System.out.println("You are missing out a great oppurtunity :( BYE!");
 		}
-
-		// System.out.println("Name : " + account.getPerson().getName());
-		// System.out.println("Address :
-		// "+account.getPerson().getAddress().displayAddress());
-		// System.out.println("Salary : "+person1.getSalary());
-		// account.deposit(person1.getSalary());
-		// person1.getAccount().withDraw(20000);
-		// System.out.println("Balance in account :
-		// "+person1.getAccount().checkBalance());
-		// System.out.println("Balance : "+person1.getAccount().checkBalance());
-
-		// Employee cooper = new Employee(46, "cooper", 70_000);
-		// System.out.println("Initial vacation available :"+sheldon.getVacationDays());
-		// sheldon.applyForLeave(15);
-		// System.out.println("Final vacation available :"+sheldon.getVacationDays());
-		// sheldon.applyForLeave(25);
-		//
-		// System.out.println(sheldon.getAccountNumber());
-		// System.out.println(cooper.getAccountNumber());
-
-		// System.out.println(sheldon.checkBalance());
-		// double amount = sheldon.withDraw(20000);
-		// System.out.println("Amount credited : " + amount);
-		// sheldon.deposit(15000);
 
 		sc.close();
 	}
 
 	public static void bank_options(Account account) {
-		System.out.println("Your Savings Account created successfully ! ");
-		System.out.println("Account Number : " + account.getAccountNumber());
-
 		Scanner sc = new Scanner(System.in);
 
 		boolean loop_check = true;
@@ -194,6 +211,5 @@ public class Client {
 			}
 
 		}
-		sc.close();
 	}
 }

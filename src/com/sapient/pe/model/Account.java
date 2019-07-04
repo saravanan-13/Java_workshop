@@ -6,7 +6,7 @@ public abstract class Account {
 	private double balance = 0;
 	private static long accountNumber = 1000;
 	private Person person;
-
+	
 	public Account(Person person) {
 		this.person = person;
 		this.accountNo = accountNumber;
