@@ -51,6 +51,8 @@ public class Client {
 		Person person1 = new Person(name, age, salary, address);
 
 		System.out.println("\nYour personal details are saved successfully!\n");
+		
+		System.out.println(person1);
 
 		// Account Creation
 

@@ -54,9 +54,8 @@ public class Address {
 		this.zipcode = zipcode;
 	}
 	
-	public String displayAddress() {
-		String address = door_no+" "+street+" "+area+" "+city+" "+zipcode;
-		return address;
+	public String toString() {
+		return street+" "+area+" "+city+" "+zipcode;
 	 }
 	
 }

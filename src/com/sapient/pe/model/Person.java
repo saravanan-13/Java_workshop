@@ -72,4 +72,10 @@ public class Person {
 		}
 	}
 	
+	public String toString() {
+		return "Name : "+ name + "\nAge : " + age + "\nSalary : " + salary + 
+				"\nAddress : " + this.address.getStreet() +", " +this.address.getArea() +
+				", " + this.address.getCity() + ", " + this.address.getZipcode();
+	}
+	
 }
