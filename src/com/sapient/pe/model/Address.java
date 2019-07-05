@@ -55,7 +55,7 @@ public class Address {
 	}
 	
 	public String toString() {
-		return street+" "+area+" "+city+" "+zipcode;
+		return "Address : " + street +", " +area +", " + city + ", " + zipcode;
 	 }
 	
 }

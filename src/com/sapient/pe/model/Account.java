@@ -1,6 +1,8 @@
 package com.sapient.pe.model;
 
-public abstract class Account {
+import java.util.Objects;
+
+public abstract class Account implements Comparable<Account>{
 
 	private long accountNo;
 	private double balance = 0;
@@ -29,6 +31,30 @@ public abstract class Account {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.accountNo, this.person.getName(), this.person.getAddress());
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if(o == null) {
+			return false;
+		}
+		if(o.getClass() != Person.class) {
+			return false;
+		}
+		Account other = (Account) o;
+		return Objects.equals(this.accountNo, other.accountNo);
+	}
+	
+	
+	@Override
+	public String toString() {
+		return "Account Number : "+ accountNo + "\nAccount Name : "+person.getName() + "\n Balance : "+getBalance()+"\n";
+	}
+	
 
 	public abstract double withDraw(double amount);
 

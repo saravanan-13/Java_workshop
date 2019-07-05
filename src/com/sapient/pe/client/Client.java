@@ -1,16 +1,24 @@
 package com.sapient.pe.client;
 
 import java.util.Scanner;
+import java.util.Set;
+//import java.util.Set;
+import java.util.TreeSet;
 
 import com.sapient.pe.model.Account;
 import com.sapient.pe.model.Address;
 import com.sapient.pe.model.CurrentAccount;
 import com.sapient.pe.model.Person;
+import com.sapient.pe.model.PublicComparators;
+import com.sapient.pe.model.PublicComparators.Comparator_Type;
 import com.sapient.pe.model.SalariedAccount;
 import com.sapient.pe.model.SavingsAccount;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+//import java.util.HashSet;
 
 public class Client {
 
@@ -20,51 +28,55 @@ public class Client {
 
 		Scanner sc = new Scanner(System.in);
 
-		// Personal Information
-		System.out.println("Enter your Name :");
-		String name = sc.nextLine();
+		// System.out.println("Please Give your address details \n");
 
-		System.out.println("Enter your age :");
-		int age = sc.nextInt();
-
-		System.out.println("Enter your salary :");
-		double salary = sc.nextDouble();
-		sc.nextLine();
-
-		System.out.println("Please Give your address details \n");
-
-		// Address Details
-		System.out.println("Enter your street :");
-		String street = sc.nextLine();
-
-		System.out.println("Enter your area :");
-		String area = sc.nextLine();
-
-		System.out.println("Enter your city :");
-		String city = sc.nextLine();
-
-		System.out.println("Enter your zipcode :");
-		String zipcode = sc.nextLine();
-
-		Address address = new Address(street, area, city, zipcode);
-
-		Person person1 = new Person(name, age, salary, address);
-
-		System.out.println("\nYour personal details are saved successfully!\n");
-		
-		System.out.println(person1);
+		// // Address Details
+		// System.out.println("Enter your street :");
+		// String street = sc.nextLine();
+		//
+		// System.out.println("Enter your area :");
+		// String area = sc.nextLine();
+		//
+		// System.out.println("Enter your city :");
+		// String city = sc.nextLine();
+		//
+		// System.out.println("Enter your zipcode :");
+		// String zipcode = sc.nextLine();
 
 		// Account Creation
 
 		boolean option_loop = true;
-		
+
 		while (option_loop) {
 
-			System.out.println("\nChoose one option: \n 1.Create Account \n 2.Check your account details \n 3.exit");
+
+			System.out.println("\nChoose one option: \n 1.Create Account \n 2.Check your account details \n"
+					+ "3.List all Accounts \n 4.exit");
 
 			int loop_option = sc.nextInt();
+			sc.nextLine();
 
 			if (loop_option == 1) {
+				
+				// Personal Information
+				System.out.println("Enter your Name :");
+				String name = sc.nextLine();
+
+				System.out.println("Enter your age :");
+				int age = sc.nextInt();
+				sc.nextLine();
+
+				System.out.println("Enter your salary :");
+				double salary = sc.nextDouble();
+				sc.nextLine();
+
+				Address address = new Address("Abcd", "Efgh", "Chennai", "600089");
+
+				Person person1 = new Person(name, age, salary, address);
+
+				System.out.println("\nYour personal details are saved successfully!\n");
+
+				System.out.println(person1);
 
 				boolean accountType_loop_check = true;
 
@@ -82,7 +94,9 @@ public class Client {
 								+ "Deposit Limit : 50000\n" + "WithDraw Limit : 25000\n"
 								+ "10000 will be debited from your salary to your bank account!");
 						System.out.println("\nWant to proceed with account creation ? \n 1.YES \n 2.NO");
-						if (sc.nextInt() == 1) {
+						int account_confirmation = sc.nextInt();
+						sc.nextLine();
+						if (account_confirmation == 1) {
 
 							// Checking if salary is sufficient for account creation
 							if (person1.getSalary() >= 10000) {
@@ -91,6 +105,7 @@ public class Client {
 								System.out.println("Account Number : " + savingsAccount.getAccountNumber());
 
 								accountList.add(savingsAccount);
+								// accountSet.add(savingsAccount);
 
 								accountType_loop_check = false;
 
@@ -108,7 +123,9 @@ public class Client {
 								+ "Deposit Limit : NO LIMIT\n" + "WithDraw Limit : NO LIMIT\n"
 								+ "25000 will be debited from your salary to your bank account!");
 						System.out.println("\nWant to proceed with account creation ? \n 1.YES \n 2.NO");
-						if (sc.nextInt() == 1) {
+						int account_confirmation = sc.nextInt();
+						sc.nextLine();
+						if (account_confirmation == 1) {
 
 							// Checking if salary is sufficient for account creation
 							if (person1.getSalary() >= 25000) {
@@ -116,6 +133,7 @@ public class Client {
 								System.out.println("Your Current Account created successfully ! ");
 								System.out.println("Account Number : " + currentAccount.getAccountNumber());
 								accountList.add(currentAccount);
+								// accountSet.add(currentAccount);
 
 								accountType_loop_check = false;
 								// Calling function which different bank options
@@ -131,11 +149,14 @@ public class Client {
 						System.out.println("\nSALARIED ACCOUNT REQUIREMENTS :  \n" + "Minimum Account Balance : 0\n"
 								+ "Deposit Limit : 50000\n" + "WithDraw Limit : NO LIMIT\n");
 						System.out.println("\nWant to proceed with account creation ? \n 1.YES \n 2.NO");
-						if (sc.nextInt() == 1) {
+						int account_confirmation = sc.nextInt();
+						sc.nextLine();
+						if (account_confirmation == 1) {
 							Account salariedAccount = new SalariedAccount(person1);
 							System.out.println("Your Salaried Account created successfully ! ");
 							System.out.println("Account Number : " + salariedAccount.getAccountNumber());
 							accountList.add(salariedAccount);
+							// accountSet.add(salariedAccount);
 							accountType_loop_check = false;
 							// Calling function which different bank options
 							// bank_options(salariedAccount);
@@ -171,13 +192,77 @@ public class Client {
 				if (!account_found)
 					System.out.println("Account Not found!");
 
+			} else if (loop_option == 3) {
+
+				boolean loop_check = true;
+				while (loop_check) {
+					System.out.println("\nChoose one option : \n 1.Ascending Order of Account Number \n "
+							+ "2.Descending Order of Account Number \n 3.Ascending Order of Account Name \n"
+							+ " 4.Descending Order of Account Name \n 5.Exit");
+					int option = sc.nextInt();
+
+					switch (option) {
+					case 1: {
+						Set<Account> accountSet = new TreeSet<>(
+								PublicComparators.getComparators(Comparator_Type.AccountNumber_Ascending));
+						accountSet.addAll(accountList);
+						System.out.println(accountSet);
+
+						// Collections.sort(accountList,
+						// PublicComparators.getComparators(PublicComparators.Comparator_Type.AccountNumber_Ascending));
+						// System.out.println(accountList);
+
+					}
+						break;
+					case 2: {
+						Set<Account> accountSet = new TreeSet<>(
+								PublicComparators.getComparators(Comparator_Type.AccountNumber_Descending));
+						accountSet.addAll(accountList);
+						System.out.println(accountSet);
+						// Collections.sort(accountList,
+						// PublicComparators.getComparators(PublicComparators.Comparator_Type.AccountNumber_Descending));
+						// System.out.println(accountList);
+					}
+						break;
+					case 3: {
+						Set<Account> accountSet = new TreeSet<>(
+								PublicComparators.getComparators(Comparator_Type.AccountName_Ascending));
+						accountSet.addAll(accountList);
+						System.out.println(accountSet);
+						// Collections.sort(accountList,
+						// PublicComparators.getComparators(PublicComparators.Comparator_Type.AccountName_Ascending));
+						// System.out.println(accountList);
+					}
+						break;
+					case 4: {
+						Set<Account> accountSet = new TreeSet<>(
+								PublicComparators.getComparators(Comparator_Type.AccountName_Descending));
+						accountSet.addAll(accountList);
+						System.out.println(accountSet);
+						// Collections.sort(accountList,
+						// PublicComparators.getComparators(PublicComparators.Comparator_Type.AccountName_Descending));
+						// System.out.println(accountList);
+					}
+						break;
+					case 5: {
+						System.out.println("Thanks for visiting us :)\n");
+						loop_check = false;
+					}
+						break;
+					default:
+						System.out.println("Choose correct option from the list!\n");
+						break;
+					}
+
+				}
+
 			} else {
 				System.out.println("Thanks for visiting us :)\n");
-				option_loop = false;
+				 option_loop = false;
 			}
 		}
 
-		sc.close();
+//		sc.close();
 	}
 
 	public static void bank_options(Account account) {

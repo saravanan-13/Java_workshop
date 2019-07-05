@@ -1,19 +1,25 @@
 package com.sapient.pe.model;
 
-public class Person {
+import java.util.Objects;
 
+public class Person implements Comparable<Person> {
+
+	private int id;
 	private int age;
 	private String name;
 	private double salary;
 	private int vacationDays = 30;
 	private Address address;
 	private Account account;
+	private static int personId = 1;
 
 	public Person(String name,int age, double salary, Address address) {
+		this.id = personId;
 		this.age = age;
 		this.name = name;
 		this.salary = salary;
 		this.address = address;
+		personId ++;
 	}
 	
 	public Account getAccount() {
@@ -73,9 +79,30 @@ public class Person {
 	}
 	
 	public String toString() {
-		return "Name : "+ name + "\nAge : " + age + "\nSalary : " + salary + 
-				"\nAddress : " + this.address.getStreet() +", " +this.address.getArea() +
-				", " + this.address.getCity() + ", " + this.address.getZipcode();
+		return "Name : "+ name + "\nAge : " + age + "\nSalary : " + salary +"\n"+address; 
+				
+	}
+	
+	public boolean equals(Object o) {
+
+		if(o == null) {
+			return false;
+		}
+		if(o.getClass() != Person.class) {
+			return false;
+		}
+		Person other = (Person) o;
+		return Objects.equals(this.id, other.id) && Objects.equals(this.name, other.name);
+		
+	}
+	
+	public int hashCode() {
+		return Objects.hash(this.id, this.name, this.salary);
+	}
+	
+	@Override
+	public int compareTo(Person person) {
+		return Integer.valueOf(this.id).compareTo(person.id);
 	}
 	
 }
